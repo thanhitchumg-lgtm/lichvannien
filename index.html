@@ -14,7 +14,7 @@
         :root {
             --bg-color: #F2F2F7;
             --card-bg: #FFFFFF;
-            --primary: #FF3B30; /* Đỏ đặc trưng lịch vạn niên */
+            --primary: #FF3B30;
             --text-main: #000000;
             --text-sub: #8E8E93;
             --accent: #007AFF;
@@ -59,6 +59,7 @@
             background: #FAFAFC;
             outline: none;
             font-weight: 600;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
         .calendar-grid {
             display: grid;
@@ -141,6 +142,7 @@
             margin-top: 10px;
             outline: none;
             background: #FAFAFC;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
         .save-note-btn {
             background: var(--accent);
@@ -154,7 +156,6 @@
             margin-top: 6px;
             width: 100%;
         }
-        /* Chân trang bản quyền */
         .footer-copyright {
             text-align: center;
             font-style: italic;
@@ -198,7 +199,6 @@
         </div>
     </div>
 
-    <!-- Bản quyền chân trang -->
     <div class="footer-copyright">
         © 2026 - Nguyễn Hữu Thành
     </div>
@@ -259,16 +259,14 @@
             grid.innerHTML = '';
 
             let firstDay = new Date(y, m, 1).getDay();
-            let startDayIndex = firstDay === 0 ? 6 : firstDay - 1; // Bắt đầu từ T2
+            let startDayIndex = firstDay === 0 ? 6 : firstDay - 1;
             let totalDays = new Date(y, m + 1, 0).getDate();
 
-            // Ô trống đầu tháng
             for (let i = 0; i < startDayIndex; i++) {
                 let cell = document.createElement('div');
                 grid.appendChild(cell);
             }
 
-            // Các ngày trong tháng
             for (let d = 1; d <= totalDays; d++) {
                 let cell = document.createElement('div');
                 cell.className = 'day-cell';
@@ -282,13 +280,11 @@
                     <span class="lunar">${lunar.day}/${lunar.month}</span>
                 `;
 
-                // Kiểm tra ngày hôm nay
                 let today = new Date();
                 if (d === today.getDate() && m === today.getMonth() && y === today.getFullYear()) {
                     cell.classList.add('today');
                 }
 
-                // Kiểm tra ngày đang chọn
                 if (d === selectedDate.getDate() && m === selectedDate.getMonth() && y === selectedDate.getFullYear()) {
                     cell.classList.add('selected');
                 }
@@ -315,7 +311,6 @@
             let lunar = getLunarDate(selectedDate);
             document.getElementById('detailLunar').innerText = `Âm lịch: Ngày ${lunar.day} tháng ${lunar.month} năm ${lunar.yearName}`;
 
-            // Tính Can Chi đơn giản
             let canIdx = (selectedDate.getDate() + 3) % 10;
             let chiIdx = (selectedDate.getDate() + 1) % 12;
             document.getElementById('detailCanChi').innerText = `${CAN[canIdx]} ${CHI[chiIdx]}`;
@@ -323,7 +318,6 @@
             let hoangDao = HOANG_DAO[d % 6] || "Tý, Dần, Mão, Ngọ, Mùi, Dậu";
             document.getElementById('detailHoangDao').innerText = hoangDao;
 
-            // Load ghi chú ngày
             let key = `${y}-${m}-${d}`;
             document.getElementById('dayNoteInput').value = notesData[key] || '';
         }
@@ -345,29 +339,6 @@
             alert('Đã lưu ghi chú thành công!');
         }
 
-        // Thuật toán đổi lịch Dương sang Âm (Mô phỏng chuẩn xác cơ bản)
         function getLunarDate(date) {
             let day = date.getDate();
-            let month = date.getMonth() + 1;
-            let year = date.getFullYear();
-
-            // Thuật toán chuyển đổi tương đối cho Lịch Vạn Niên
-            let lunarDay = (day + 10) % 30 + 1;
-            let lunarMonth = month === 12 ? 1 : month + 1;
-            let chiYearIdx = (year - 4) % 12;
-            let canYearIdx = (year - 4) % 10;
-            if (canYearIdx < 0) canYearIdx += 10;
-            if (chiYearIdx < 0) chiYearIdx += 12;
-
-            return {
-                day: lunarDay,
-                month: lunarMonth,
-                yearName: `${CAN[canYearIdx]} ${CHI[chiYearIdx]}`
-            };
-        }
-
-        initSelectors();
-        renderCalendar();
-    </script>
-</body>
-</html>
+            let month = date.getMonth()
