@@ -282,6 +282,14 @@
             font-size: 12px;
             font-weight: 600;
         }
+        /* Chân trang bản quyền */
+        .footer-copyright {
+            text-align: center;
+            font-style: italic;
+            color: var(--text-sub);
+            font-size: 13px;
+            margin: 20px 0 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -339,12 +347,17 @@
                 <button onclick="addNote()">Lưu</button>
             </div>
         </div>
+
+        <!-- Dòng bản quyền chân trang -->
+        <div class="footer-copyright">
+            © 2026 - Nguyễn Hữu Thành
+        </div>
     </div>
 
     <script>
         /* =========================================================
-           THUẬT TOÁN ÂM LỊCH VIỆT NAM (MÚI GIỜ UTC+7)
-           ========================================================= */
+            THUẬT TOÁN ÂM LỊCH VIỆT NAM (MÚI GIỜ UTC+7)
+            ========================================================= */
         const PI = Math.PI;
         function INT(d) { return Math.floor(d); }
 
@@ -449,8 +462,8 @@
         }
 
         /* =========================================================
-           CAN CHI, GIỜ HOÀNG ĐẠO & NGÀY LỄ
-           ========================================================= */
+            CAN CHI, GIỜ HOÀNG ĐẠO & NGÀY LỄ
+            ========================================================= */
         const CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
         const CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
         const WEEKDAYS = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
@@ -511,8 +524,8 @@
         }
 
         /* =========================================================
-           QUẢN LÝ GIAO DIỆN & LƯU TRỮ RIÊNG BIỆT
-           ========================================================= */
+            QUẢN LÝ GIAO DIỆN & LƯU TRỮ RIÊNG BIỆT
+            ========================================================= */
         const STORAGE_KEY = 'my_lich_van_nien_v1';
         let notesData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
 
@@ -564,7 +577,6 @@
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = '';
 
-            // Tính thứ của ngày mùng 1 (Chuyển sang hệ Thứ Hai = 0 ... Chủ Nhật = 6)
             const firstDay = new Date(viewYear, viewMonth, 1);
             const startOffset = (firstDay.getDay() + 6) % 7;
             const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
@@ -642,8 +654,8 @@
         }
 
         /* =========================================================
-           GHI CHÚ THEO NGÀY
-           ========================================================= */
+            GHI CHÚ THEO NGÀY
+            ========================================================= */
         function renderNotes(d, m, y) {
             document.getElementById('noteDateLabel').innerText = `${d}/${m}/${y}`;
             const key = formatKey(d, m, y);
